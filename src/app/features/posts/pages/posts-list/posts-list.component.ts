@@ -1,24 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {PostService} from '../../../../core/services/http/post/post.service';
+import {Post} from '../../../../core/model/post/post';
 
 @Component({
   selector: 'app-posts-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './posts-list.component.html',
-  styleUrls: ['./posts-list.component.css'],
+  styleUrl: './posts-list.component.css'
 })
+
 export class PostsListComponent implements OnInit {
-  posts: any[] = [];
+  public posts: Post[] = [];
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private httpService: PostService
+  ) {
+  }
 
-  ngOnInit(): void {
-    this.http.get<any>('https://dummyjson.com/posts').subscribe({
-      next: (resp) => {
-        this.posts = resp.posts ?? [];
+  ngOnInit() {
+    this.httpService.getAllPosts().subscribe({
+      next: data => {
+        this.posts = data.posts
+        console.log(this.posts);
       },
-    });
+      error: error => console.log(error)
+    })
   }
 }
