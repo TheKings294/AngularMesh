@@ -1,0 +1,44 @@
+ :host {
+  --mesh-accent: #4fcdbf;
+  --mesh-accent-dark: #3fb1a4;
+  --mesh-accent-ring: rgba(79, 205, 191, 0.35);
+}
+
+.mesh-input:focus {
+  border-color: var(--mesh-accent);
+  box-shadow: 0 0 0 3px var(--mesh-accent-ring);
+  outline: none;
+}
+
+.mesh-input:focus-visible {
+  border-color: var(--mesh-accent);
+  box-shadow: 0 0 0 3px var(--mesh-accent-ring);
+  outline: none;
+}
+
+.mesh-checkbox:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--mesh-accent-ring);
+  border-color: var(--mesh-accent);
+}
+
+.mesh-link {
+  color: var(--mesh-accent);
+}
+
+.mesh-link:hover {
+  color: var(--mesh-accent-dark);
+}
+
+.mesh-button {
+  background-color: var(--mesh-accent);
+}
+
+.mesh-button:hover {
+  background-color: var(--mesh-accent-dark);
+}
+
+.mesh-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--mesh-accent-ring);
+}

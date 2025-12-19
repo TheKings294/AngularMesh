@@ -4,6 +4,21 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TokenService {
+  private readonly storageKey = 'mesh-auth-token';
 
-  constructor() { }
+  setToken(token: string, remember = false): void {
+    const target = remember ? localStorage : sessionStorage;
+    target.setItem(this.storageKey, token);
+    // Clear the other storage to avoid stale tokens.
+    (remember ? sessionStorage : localStorage).removeItem(this.storageKey);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.storageKey) ?? sessionStorage.getItem(this.storageKey);
+  }
+
+  clear(): void {
+    localStorage.removeItem(this.storageKey);
+    sessionStorage.removeItem(this.storageKey);
+  }
 }
