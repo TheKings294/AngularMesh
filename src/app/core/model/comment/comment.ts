@@ -9,3 +9,10 @@ export interface Comment {
     fullName: string;
   }
 }
+
+export interface CommentPostResponse {
+  comments: Comment[];
+  total: number;
+  skip: number;
+  limit: number;
+}
