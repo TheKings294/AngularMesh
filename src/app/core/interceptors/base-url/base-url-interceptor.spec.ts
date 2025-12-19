@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpInterceptorFn } from '@angular/common/http';
 
-import { authwdInterceptor } from './authwd.interceptor';
+import { baseUrlInterceptor } from './base-url-interceptor';
 
-describe('authwdInterceptor', () => {
+describe('baseUrlInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) => 
-    TestBed.runInInjectionContext(() => authwdInterceptor(req, next));
+    TestBed.runInInjectionContext(() => baseUrlInterceptor(req, next));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
