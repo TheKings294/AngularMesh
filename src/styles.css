@@ -1,3 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
-
+/* Global styles and Tailwind entrypoint */
 @import "tailwindcss";
+
+/* Mesh brand colors centralized for Tailwind utilities */
+@theme {
+  --color-mesh: #4fcdbf;
+  --color-mesh-dark: #3fb1a4;
+}

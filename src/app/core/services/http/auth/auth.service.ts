@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { TokenService } from '../../storage/token/token.service';
@@ -24,8 +24,10 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly http = inject(HttpClient);
-  private readonly tokenService = inject(TokenService);
+  constructor(
+    private readonly http: HttpClient,
+    private readonly tokenService: TokenService,
+  ) {}
 
   login(body: LoginRequest): Observable<LoginResponse> {
     const { remember, ...payload } = body;

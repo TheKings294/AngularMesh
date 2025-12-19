@@ -9,7 +9,7 @@ import { AuthService, LoginRequest } from '../../../../core/services/http/auth/a
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   errorMessage: string | null = null;
@@ -48,7 +48,7 @@ export class LoginComponent {
     this.authService.login(payload).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/posts']);
+        this.router.navigate(['/users']);
       },
       error: (err) => {
         this.loading = false;

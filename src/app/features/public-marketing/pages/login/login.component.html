@@ -23,7 +23,7 @@
               id="username"
               formControlName="username"
               autocomplete="username"
-              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mesh-input"
+              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-mesh focus:border-mesh dark:focus:ring-mesh dark:focus:border-mesh"
               placeholder="kminchelle"
               required
             >
@@ -37,7 +37,7 @@
               formControlName="password"
               autocomplete="current-password"
               placeholder="••••••••"
-              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white mesh-input"
+              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-mesh focus:border-mesh dark:focus:ring-mesh dark:focus:border-mesh"
               required
             >
           </div>
@@ -48,16 +48,16 @@
                 id="remember"
                 type="checkbox"
                 formControlName="remember"
-                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 dark:bg-gray-700 dark:border-gray-600 mesh-checkbox"
+                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 dark:bg-gray-700 dark:border-gray-600 focus:ring-3 focus:ring-mesh/40"
               >
               Remember me
             </label>
-            <a href="#" class="text-sm font-medium mesh-link hover:underline">Forgot password?</a>
+            <a href="#" class="text-sm font-medium text-mesh hover:text-mesh-dark hover:underline">Forgot password?</a>
           </div>
 
           <button
             type="submit"
-            class="w-full text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center mesh-button disabled:opacity-60 disabled:cursor-not-allowed"
+            class="w-full text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-mesh hover:bg-mesh-dark focus:ring-4 focus:outline-none focus:ring-mesh/40 disabled:opacity-60 disabled:cursor-not-allowed"
             [disabled]="loading"
           >
             <ng-container *ngIf="loading; else submitLabel">Signing in…</ng-container>
