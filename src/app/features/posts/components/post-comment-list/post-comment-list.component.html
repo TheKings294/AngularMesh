@@ -1,0 +1,9 @@
+<section class="space-y-4">
+  <h2 class="text-xl font-semibold text-white">
+    Comments ({{ comments.length }})
+  </h2>
+
+  @for (comment of comments; track comment.id) {
+    <app-post-comment [comment]="comment" class="mb-1"/>
+  }
+</section>
