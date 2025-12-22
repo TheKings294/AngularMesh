@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {DeleteProductResponseDTO, ProductResponse, ProductsResponseDTO} from '../../../model/product/dto-product';
 import {DeletedProduct, Product, Products} from '../../../model/product/domain-product';
-import {mapProduct, mapProductToDTO} from '../../../mappers/mapper-product';
+import {mapProduct} from '../../../mappers/mapper-product';
 import {mapReview} from '../../../mappers/mapper-review';
 
 @Injectable({
@@ -38,45 +38,46 @@ export class ProductService {
     );
   }
 
-  public createProduct(product: Product): Observable<Product> {
+  public createProduct(product: Product): Observable<HttpResponse<Partial<ProductResponse>>> {
     return this.http.post<ProductResponse>(`/products/add`,
-      mapProductToDTO(product),
+      product,
       {
         headers: {
           'Content-Type': 'application/json'
-        }
-      }
-    ).pipe(
-      map(response => ({
-        ...response,
-        meta: {
-          ...response.meta,
-          createdAt: new Date(response.meta.createdAt),
-          updatedAt: new Date(response.meta.createdAt)
         },
-        reviews: response.reviews.map(mapReview),
-      }))
+        observe: "response"
+      }
     )
   }
 
-  public updateProduct(product: Partial<Product>): Observable<Product> {
+  public updateProduct(product: Partial<Product>): Observable<HttpResponse<Product>> {
     return this.http.put<ProductResponse>(`/products/${product.id}`,
       product,
       {
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        observe: "response"
       }
     ).pipe(
-      map(response => ({
-        ...response,
-        meta: {
-          ...response.meta,
-          createdAt: new Date(response.meta.createdAt),
-          updatedAt: new Date(response.meta.createdAt)
-        },
-        reviews: response.reviews.map(mapReview),
-      }))
+      map(response => {
+          if (!response.body) {
+            throw new Error('Empty response body');
+          }
+
+          const body: Product = {
+            ...response.body,
+            meta: {
+              ...response.body.meta,
+              createdAt: new Date(response.body.meta.createdAt),
+              updatedAt: new Date(response.body.meta.updatedAt),
+            },
+            reviews: response.body.reviews.map(mapReview),
+          };
+
+          return response.clone({ body });
+        }
+        )
     )
   }
 
