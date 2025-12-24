@@ -50,8 +50,8 @@ export class ProductService {
     )
   }
 
-  public updateProduct(product: Partial<Product>): Observable<HttpResponse<Product>> {
-    return this.http.put<ProductResponse>(`/products/${product.id}`,
+  public updateProduct(product: Partial<Product>, id: number): Observable<HttpResponse<Partial<ProductResponse>>> {
+    return this.http.put<ProductResponse>(`/products/${id}`,
       product,
       {
         headers: {
@@ -59,25 +59,6 @@ export class ProductService {
         },
         observe: "response"
       }
-    ).pipe(
-      map(response => {
-          if (!response.body) {
-            throw new Error('Empty response body');
-          }
-
-          const body: Product = {
-            ...response.body,
-            meta: {
-              ...response.body.meta,
-              createdAt: new Date(response.body.meta.createdAt),
-              updatedAt: new Date(response.body.meta.updatedAt),
-            },
-            reviews: response.body.reviews.map(mapReview),
-          };
-
-          return response.clone({ body });
-        }
-        )
     )
   }
 
