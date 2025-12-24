@@ -1,0 +1,203 @@
+<form
+  [formGroup]="form"
+  class="max-w-5xl mx-auto p-6 space-y-8 bg-white rounded-lg shadow"
+  (ngSubmit)="onSubmit()"
+>
+  <!-- Title -->
+  <div>
+    <label class="block mb-2 text-sm font-medium text-gray-900">
+      Title *
+    </label>
+    <input
+      type="text"
+      formControlName="title"
+      class="input"
+      placeholder="Product title"
+    />
+  </div>
+
+  <!-- Description -->
+  <div>
+    <label class="block mb-2 text-sm font-medium text-gray-900">
+      Description
+    </label>
+    <textarea
+      rows="4"
+      formControlName="description"
+      class="input"
+      placeholder="Product description"
+    ></textarea>
+  </div>
+
+  <!-- Category / Brand -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label class="block mb-2 text-sm font-medium">Category</label>
+      <input type="text" formControlName="category" class="input" />
+    </div>
+
+    <div>
+      <label class="block mb-2 text-sm font-medium">Brand</label>
+      <input type="text" formControlName="brand" class="input" />
+    </div>
+  </div>
+
+  <!-- Price / Discount / Stock -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div>
+      <label class="block mb-2 text-sm font-medium">Price *</label>
+      <input type="number" formControlName="price" class="input" />
+    </div>
+
+    <div>
+      <label class="block mb-2 text-sm font-medium">Discount %</label>
+      <input
+        type="number"
+        formControlName="discountPercentage"
+        class="input"
+      />
+    </div>
+
+    <div>
+      <label class="block mb-2 text-sm font-medium">Stock</label>
+      <input type="number" formControlName="stock" class="input" />
+    </div>
+  </div>
+
+  <!-- SKU / Weight -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label class="block mb-2 text-sm font-medium">SKU</label>
+      <input type="text" formControlName="sku" class="input" />
+    </div>
+
+    <div>
+      <label class="block mb-2 text-sm font-medium">Weight (kg)</label>
+      <input type="number" formControlName="weight" class="input" />
+    </div>
+  </div>
+
+  <!-- Dimensions -->
+  <fieldset
+    formGroupName="dimensions"
+    class="border rounded-lg p-4"
+  >
+    <legend class="px-2 text-sm font-semibold text-gray-700">
+      Dimensions (cm)
+    </legend>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+      <input
+        type="number"
+        formControlName="width"
+        class="input"
+        placeholder="Width"
+      />
+      <input
+        type="number"
+        formControlName="height"
+        class="input"
+        placeholder="Height"
+      />
+      <input
+        type="number"
+        formControlName="depth"
+        class="input"
+        placeholder="Depth"
+      />
+    </div>
+  </fieldset>
+
+  <!-- Warranty / Shipping -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label class="block mb-2 text-sm font-medium">
+        Warranty Information
+      </label>
+      <input
+        type="text"
+        formControlName="warrantyInformation"
+        class="input"
+      />
+    </div>
+
+    <div>
+      <label class="block mb-2 text-sm font-medium">
+        Shipping Information
+      </label>
+      <input
+        type="text"
+        formControlName="shippingInformation"
+        class="input"
+      />
+    </div>
+  </div>
+
+  <!-- Availability / Return -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label class="block mb-2 text-sm font-medium">
+        Availability Status
+      </label>
+      <input
+        type="text"
+        formControlName="availabilityStatus"
+        class="input"
+      />
+    </div>
+
+    <div>
+      <label class="block mb-2 text-sm font-medium">
+        Return Policy
+      </label>
+      <input type="text" formControlName="returnPolicy" class="input" />
+    </div>
+  </div>
+
+  <!-- Minimum Order -->
+  <div>
+    <label class="block mb-2 text-sm font-medium">
+      Minimum Order Quantity
+    </label>
+    <input
+      type="number"
+      formControlName="minimumOrderQuantity"
+      class="input"
+    />
+  </div>
+
+  <!-- Tags -->
+  <div>
+    <label class="block mb-2 text-sm font-medium">
+      Tags (comma separated)
+    </label>
+    <input type="text" formControlName="tags" class="input" />
+  </div>
+
+  <!-- Images -->
+  <div>
+    <label class="block mb-2 text-sm font-medium">
+      Images URLs (comma separated)
+    </label>
+    <input type="text" formControlName="images" class="input" />
+  </div>
+
+  <!-- Thumbnail -->
+  <div>
+    <label class="block mb-2 text-sm font-medium">
+      Thumbnail URL
+    </label>
+    <input type="text" formControlName="thumbnail" class="input" />
+  </div>
+
+  <!-- Submit -->
+  <div class="flex justify-end">
+    <button
+      type="submit"
+      class="px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+      [disabled]="form.invalid"
+    >
+      Save Product
+    </button>
+  </div>
+</form>
