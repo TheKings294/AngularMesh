@@ -15,8 +15,8 @@ export class ProductService {
     private http: HttpClient,
   ) { }
 
-  public getAllProduct(): Observable<Products> {
-    return this.http.get<ProductsResponseDTO>(`/products`).pipe(
+  public getAllProduct(skip?: number): Observable<Products> {
+    return this.http.get<ProductsResponseDTO>(`/products${skip ? `?skip=${skip}` : ""}`).pipe(
       map(response => ({
         ...response,
         products: response.products.map(mapProduct),

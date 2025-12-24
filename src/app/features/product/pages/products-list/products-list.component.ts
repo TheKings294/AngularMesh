@@ -26,4 +26,12 @@ export class ProductsListComponent implements OnInit {
       this.products = products.products
     })
   }
+
+  public showMore(): void {
+    this.productService.getAllProduct(this.products.length).subscribe(products => {
+      products.products.forEach(product => {
+        this.products.push(product);
+      })
+    })
+  }
 }

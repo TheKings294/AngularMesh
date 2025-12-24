@@ -1,4 +1,35 @@
 @if (product) {
+  <div class="flex justify-end items-center flex-row gap-4 mt-4 me-4">
+    <button
+      type="button"
+      class="box-border border border-transparent
+         bg-blue-600 hover:bg-blue-700
+         text-white
+         focus:ring-4 focus:ring-blue-300 focus:outline-none
+         shadow-sm
+         font-medium leading-5
+         rounded-lg
+         text-sm px-4 py-2.5"
+      (click)="editProduct(product.id)"
+    >
+      Modifier
+    </button>
+    <button
+      type="button"
+      class="box-border border border-transparent
+         bg-red-600 hover:bg-red-700
+         text-white
+         focus:ring-4 focus:ring-red-300 focus:outline-none
+         shadow-sm
+         font-medium leading-5
+         rounded-lg
+         text-sm px-4 py-2.5"
+      (click)="deleteProduct(product.id)"
+    >
+      Supprimer
+    </button>
+  </div>
+
   <div class="max-w-6xl mx-auto p-6 space-y-8
               bg-gray-900 text-gray-100 rounded-xl">
 

@@ -34,4 +34,20 @@ export class ProductDetailComponent implements OnInit {
       })
     })
   }
+
+  public editProduct(id: number) {
+    this.router.navigate([`products/update/${id}`]);
+  }
+
+  public deleteProduct(id: number) {
+    if (confirm("Are you sure to delete this product?")) {
+      this.productService.deleteProduct(id).subscribe({
+        next: (data) => {
+          if (data.isDeleted) {
+            this.router.navigate([`products/`]);
+          }
+        }
+      })
+    }
+  }
 }
