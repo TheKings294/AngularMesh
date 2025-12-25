@@ -1,0 +1,200 @@
+@if (product) {
+  <div class="flex justify-end items-center flex-row gap-4 mt-4 me-4">
+    <button
+      type="button"
+      class="box-border border border-transparent
+         bg-blue-600 hover:bg-blue-700
+         text-white
+         focus:ring-4 focus:ring-blue-300 focus:outline-none
+         shadow-sm
+         font-medium leading-5
+         rounded-lg
+         text-sm px-4 py-2.5"
+      (click)="editProduct(product.id)"
+    >
+      Modifier
+    </button>
+    <button
+      type="button"
+      class="box-border border border-transparent
+         bg-red-600 hover:bg-red-700
+         text-white
+         focus:ring-4 focus:ring-red-300 focus:outline-none
+         shadow-sm
+         font-medium leading-5
+         rounded-lg
+         text-sm px-4 py-2.5"
+      (click)="deleteProduct(product.id)"
+    >
+      Supprimer
+    </button>
+  </div>
+
+  <div class="max-w-6xl mx-auto p-6 space-y-8
+              bg-gray-900 text-gray-100 rounded-xl">
+
+    <!-- Product Header -->
+    <div class="flex flex-col md:flex-row gap-6">
+      <img
+        [src]="product.thumbnail"
+        alt="{{ product.title }}"
+        class="w-full md:w-80 h-80 object-cover rounded-lg shadow-lg
+               border border-gray-800"
+      />
+
+      <div class="flex-1 space-y-4">
+        <h1 class="text-3xl font-bold text-white">
+          {{ product.title }}
+        </h1>
+
+        <p class="text-gray-400">
+          {{ product.description }}
+        </p>
+
+        <!-- Badges -->
+        <div class="flex flex-wrap gap-2">
+          <span class="badge badge-info dark:bg-blue-600 dark:text-white">
+            {{ product.category }}
+          </span>
+
+          <span class="badge badge-success dark:bg-green-600 dark:text-white">
+            {{ product.brand }}
+          </span>
+
+          <span
+            class="badge dark:text-white"
+            [ngClass]="{
+              'dark:bg-yellow-600': product.availabilityStatus === 'Low Stock',
+              'dark:bg-emerald-600': product.availabilityStatus !== 'Low Stock'
+            }"
+          >
+            {{ product.availabilityStatus }}
+          </span>
+        </div>
+
+        <!-- Price -->
+        <div class="flex items-center gap-4">
+          <span class="text-3xl font-semibold text-emerald-400">
+            €{{ product.price }}
+          </span>
+
+          <span class="text-sm text-red-400">
+            -{{ product.discountPercentage }}%
+          </span>
+        </div>
+
+        <!-- Rating -->
+        <div class="flex items-center gap-2">
+          <span class="text-yellow-400 text-lg">★</span>
+          <span class="font-medium text-gray-200">
+            {{ product.rating }} / 5
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Logistics -->
+      <div class="card bg-gray-800 border border-gray-700">
+        <div class="card-body">
+          <h2 class="card-title text-white">Logistics</h2>
+
+          <ul class="text-sm text-gray-400 space-y-1">
+            <li><strong class="text-gray-300">Stock:</strong> {{ product.stock }}</li>
+            <li><strong class="text-gray-300">SKU:</strong> {{ product.sku }}</li>
+            <li><strong class="text-gray-300">Shipping:</strong> {{ product.shippingInformation }}</li>
+            <li><strong class="text-gray-300">Warranty:</strong> {{ product.warrantyInformation }}</li>
+            <li><strong class="text-gray-300">Return:</strong> {{ product.returnPolicy }}</li>
+            <li><strong class="text-gray-300">Min Order:</strong> {{ product.minimumOrderQuantity }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Dimensions -->
+      <div class="card bg-gray-800 border border-gray-700">
+        <div class="card-body">
+          <h2 class="card-title text-white">Dimensions</h2>
+
+          <ul class="text-sm text-gray-400 space-y-1">
+            <li>Width: {{ product.dimensions.width }} cm</li>
+            <li>Height: {{ product.dimensions.height }} cm</li>
+            <li>Depth: {{ product.dimensions.depth }} cm</li>
+            <li>Weight: {{ product.weight }} kg</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="card bg-gray-800 border border-gray-700">
+        <div class="card-body">
+          <h2 class="card-title text-white">Tags</h2>
+
+          <div class="flex flex-wrap gap-2">
+            @for (tag of product.tags; track tag) {
+              <span
+                class="px-3 py-1 text-xs rounded-full
+                       bg-gray-700 text-gray-200 border border-gray-600">
+                {{ tag }}
+              </span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="card bg-gray-800 border border-gray-700">
+      <div class="card-body">
+        <h2 class="card-title text-white">
+          Reviews ({{ product.reviews.length }})
+        </h2>
+
+        <div class="space-y-4">
+          @for (review of product.reviews; track review.reviewerEmail) {
+            <div class="border-b border-gray-700 pb-4">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-gray-200">
+                  {{ review.reviewerName }}
+                </span>
+
+                <span class="text-yellow-400">
+                  ★ {{ review.rating }}
+                </span>
+              </div>
+
+              <p class="text-gray-400 text-sm mt-1">
+                {{ review.comment }}
+              </p>
+
+              <p class="text-xs text-gray-500 mt-1">
+                {{ review.date | date:'mediumDate' }}
+              </p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    @if (product.images.length > 0) {
+      <div>
+        <h2 class="text-xl font-semibold mb-4 text-white">
+          Gallery
+        </h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          @for (img of product.images; track img) {
+            <img
+              [src]="img"
+              alt="Product image"
+              class="rounded-lg object-cover h-40 w-full
+                     border border-gray-800 shadow-md"
+            />
+          }
+        </div>
+      </div>
+    }
+  </div>
+}
