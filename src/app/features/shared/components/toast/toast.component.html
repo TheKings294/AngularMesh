@@ -1,0 +1,37 @@
+@if (visible()) {
+  <div
+    class="fixed top-5 right-5 z-50 flex items-center w-full max-w-xs p-4
+           rounded-lg shadow-lg transition-opacity duration-300
+           bg-gray-800 border text-gray-100"
+    [ngClass]="{
+      'border-green-600': type() === 'success',
+      'border-red-600': type() === 'error',
+      'border-yellow-500': type() === 'warning',
+      'border-blue-500': type() === 'info'
+    }"
+    role="alert"
+  >
+    <!-- Icon -->
+    <div
+      class="inline-flex items-center justify-center w-8 h-8 rounded-lg mr-3"
+      [ngClass]="{
+        'bg-green-600': type() === 'success',
+        'bg-red-600': type() === 'error',
+        'bg-yellow-500': type() === 'warning',
+        'bg-blue-600': type() === 'info'
+      }"
+    >
+      <span class="text-white font-bold">
+        @if (type() === 'success') { ✓ }
+        @if (type() === 'error') { ✕ }
+        @if (type() === 'warning') { ! }
+        @if (type() === 'info') { i }
+      </span>
+    </div>
+
+    <!-- Message -->
+    <div class="text-sm font-medium">
+      {{ message() }}
+    </div>
+  </div>
+}
