@@ -7,15 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        danger: '#dc2626',   // red-600
-        success: '#16a34a',  // green-600
-        warning: '#f59e0b',  // amber-500
-        info: '#0284c7',     // sky-600
-      }
+        mesh: '#4fcdbf',
+        'mesh-dark': '#3fb1a4',
+      },
     },
   },
   plugins: [
     require('flowbite/plugin')
   ],
 }
-

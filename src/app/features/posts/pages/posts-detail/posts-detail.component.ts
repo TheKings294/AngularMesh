@@ -15,7 +15,7 @@ import {PostCommentListComponent} from '../../components/post-comment-list/post-
     PostCommentListComponent
   ],
   templateUrl: './posts-detail.component.html',
-  styleUrl: './posts-detail.component.css'
+  styleUrls: ['./posts-detail.component.css']
 })
 export class PostsDetailComponent implements OnInit {
   public post!: Post;
