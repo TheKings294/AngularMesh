@@ -4,10 +4,14 @@ module.exports = {
     "./src/**/*.{html,ts}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        mesh: '#4fcdbf',
+        'mesh-dark': '#3fb1a4',
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin')
   ],
 }
-

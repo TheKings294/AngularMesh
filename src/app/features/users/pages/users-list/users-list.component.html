@@ -1,60 +1,112 @@
-<div class="overflow-x-auto">
-  <table class="w-full text-sm text-left text-gray-600 dark:text-gray-300">
-    <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-      <tr>
-        <th class="px-4 py-3">ID</th>
-        <th class="px-4 py-3">User</th>
-        <th class="px-4 py-3">Email</th>
-        <th class="px-4 py-3">Phone</th>
-        <th class="px-4 py-3">Company</th>
-        <th class="px-4 py-3">Role</th>
-        <th class="px-4 py-3 text-right">
-          <span class="sr-only">Actions</span>
-        </th>
-      </tr>
-    </thead>
-
-    <tbody *ngIf="!loading && !error && users.length; else tableState">
-      <tr *ngFor="let user of users" class="border-b border-gray-100 dark:border-gray-700">
-        <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">{{ user.id }}</td>
-        <td class="px-4 py-3">
-          <div class="font-medium text-gray-900 dark:text-white">
-            {{ user.firstName }} {{ user.lastName }}
+<section class="bg-gray-50 dark:bg-gray-900 min-h-screen px-6 py-10">
+  <div class="w-full max-w-5xl mx-auto">
+    <div class="w-full bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <div class="flex items-center justify-between gap-4 border-b border-mesh/20 pb-4">
+          <div>
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              Users
+            </h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              Browse the current user directory.
+            </p>
           </div>
-          <div class="text-xs text-gray-500 dark:text-gray-400">@{{ user.username }}</div>
-        </td>
-        <td class="px-4 py-3">{{ user.email }}</td>
-        <td class="px-4 py-3">{{ user.phone }}</td>
-        <td class="px-4 py-3">{{ user.company?.name || '—' }}</td>
-        <td class="px-4 py-3">
-          <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-xs text-gray-700 dark:text-gray-200">
-            {{ user.role || '—' }}
-          </span>
-        </td>
-        <td class="px-4 py-3 text-right text-sm text-gray-400 dark:text-gray-500">
-          —
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <label class="w-full max-w-xs">
+            <span class="sr-only">Search users</span>
+            <input
+              type="search"
+              placeholder="Search users..."
+              class="w-full rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 focus:border-mesh focus:ring-mesh dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+              [(ngModel)]="searchTerm"
+            >
+          </label>
+        </div>
 
-  <ng-template #tableState>
-    <tbody>
-      <tr *ngIf="loading">
-        <td colspan="7" class="px-6 py-6 text-center text-gray-400 dark:text-gray-500">
-          Loading users...
-        </td>
-      </tr>
-      <tr *ngIf="!loading && error">
-        <td colspan="7" class="px-6 py-6 text-center text-red-600 dark:text-red-400">
-          {{ error }}
-        </td>
-      </tr>
-      <tr *ngIf="!loading && !error && !users.length">
-        <td colspan="7" class="px-6 py-6 text-center text-gray-400 dark:text-gray-500">
-          No users found.
-        </td>
-      </tr>
-    </tbody>
-  </ng-template>
-</div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left text-gray-600 dark:text-gray-300">
+            <thead class="text-xs uppercase bg-mesh/10 text-mesh-dark">
+              <tr>
+                <th class="px-4 py-3">ID</th>
+                <th class="px-4 py-3">User</th>
+                <th class="px-4 py-3">Email</th>
+                <th class="px-4 py-3">Phone</th>
+                <th class="px-4 py-3">Company</th>
+                <th class="px-4 py-3">Role</th>
+                <th class="px-4 py-3 text-right">
+                  <span class="sr-only">Actions</span>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody *ngIf="!loading && !error && filteredUsers.length; else tableState">
+              <tr *ngFor="let user of filteredUsers" class="border-b border-gray-100 dark:border-gray-700">
+                <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">{{ user.id }}</td>
+                <td class="px-4 py-3">
+                  <div class="font-medium text-gray-900 dark:text-white">
+                    {{ user.firstName }} {{ user.lastName }}
+                  </div>
+                  <div class="text-xs text-gray-500 dark:text-gray-400">&#64;{{ user.username }}</div>
+                </td>
+                <td class="px-4 py-3">{{ user.email }}</td>
+                <td class="px-4 py-3">{{ user.phone }}</td>
+                <td class="px-4 py-3">{{ user.company?.name || '—' }}</td>
+                <td class="px-4 py-3">
+                  <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-xs text-gray-700 dark:text-gray-200">
+                    {{ user.role || '—' }}
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-right text-sm text-gray-400 dark:text-gray-500">
+                  —
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <ng-template #tableState>
+            <tbody>
+              <tr *ngIf="loading">
+                <td colspan="7" class="px-6 py-6 text-center text-gray-400 dark:text-gray-500">
+                  Loading users...
+                </td>
+              </tr>
+              <tr *ngIf="!loading && error">
+                <td colspan="7" class="px-6 py-6 text-center text-red-600 dark:text-red-400">
+                  {{ error }}
+                </td>
+              </tr>
+              <tr *ngIf="!loading && !error && !filteredUsers.length">
+                <td colspan="7" class="px-6 py-6 text-center text-gray-400 dark:text-gray-500">
+                  No users found.
+                </td>
+              </tr>
+            </tbody>
+          </ng-template>
+        </div>
+
+        <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+          <div class="text-mesh-dark">
+            Page {{ currentPage }} of {{ totalPages }}
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              class="px-3 py-1.5 rounded border border-gray-200 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
+              [disabled]="currentPage === 1 || loading"
+              (click)="previousPage()"
+            >
+              Previous
+            </button>
+            <button
+              type="button"
+              class="px-3 py-1.5 rounded border border-gray-200 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
+              [disabled]="currentPage === totalPages || loading"
+              (click)="nextPage()"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

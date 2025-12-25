@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface User {
   id: number;
@@ -15,6 +15,9 @@ export interface User {
 
 interface UsersResponse {
   users: User[];
+  total: number;
+  skip: number;
+  limit: number;
 }
 
 @Injectable({
@@ -23,9 +26,14 @@ interface UsersResponse {
 export class UsersService {
   constructor(private readonly http: HttpClient) {}
 
-  getUsers(): Observable<User[]> {
+  getUsers(page: number, pageSize: number): Observable<UsersResponse> {
+    const skip = (page - 1) * pageSize;
     return this.http
-      .get<UsersResponse>('https://dummyjson.com/users')
-      .pipe(map((response) => response.users));
+      .get<UsersResponse>('https://dummyjson.com/users', {
+        params: {
+          limit: pageSize,
+          skip,
+        },
+      });
   }
 }
