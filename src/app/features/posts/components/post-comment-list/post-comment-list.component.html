@@ -1,9 +1,45 @@
-<section class="space-y-4">
-  <h2 class="text-xl font-semibold text-white">
+<!-- Comments -->
+<section
+  class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-md mt-6"
+>
+  <h2 class="text-lg font-semibold text-white mb-4">
     Comments ({{ comments.length }})
   </h2>
 
-  @for (comment of comments; track comment.id) {
-    <app-post-comment [comment]="comment" class="mb-1"/>
+  @if (comments.length === 0) {
+    <p class="text-gray-400 text-sm">
+      No comments yet.
+    </p>
   }
+
+  <div class="space-y-4">
+    @for (comment of comments; track comment.id) {
+      <div
+        class="border border-gray-700 rounded-lg p-4
+               bg-gray-900/50"
+      >
+        <!-- User -->
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <p class="text-sm font-semibold text-white hover:cursor-pointer hover:underline" (click)="goToUser(comment.user.id)">
+              {{ comment.user.fullName }}
+            </p>
+            <p class="text-xs text-gray-400">
+              {{ comment.user.username }}
+            </p>
+          </div>
+
+          <!-- Likes -->
+          <div class="flex items-center gap-1 text-green-400 text-sm">
+            ▲ {{ comment.likes }}
+          </div>
+        </div>
+
+        <!-- Comment body -->
+        <p class="text-gray-300 text-sm leading-relaxed">
+          {{ comment.body }}
+        </p>
+      </div>
+    }
+  </div>
 </section>

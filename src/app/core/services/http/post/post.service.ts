@@ -12,11 +12,15 @@ export class PostService {
     private http: HttpClient
   ) { }
 
-  public getAllPosts(): Observable<PostsResponse> {
-    return this.http.get<PostsResponse>('/posts')
+  public getAllPosts(skip?: number): Observable<PostsResponse> {
+    return this.http.get<PostsResponse>(`/posts${skip ? `?skip=${skip}` : ""}`)
   }
 
   public getOnePostById(id: number): Observable<Post> {
     return this.http.get<Post>(`/posts/${id}`)
+  }
+
+  public getPostsOfOneUserById(id: number): Observable<PostsResponse> {
+    return this.http.get<PostsResponse>(`/posts/user/${id}`)
   }
 }

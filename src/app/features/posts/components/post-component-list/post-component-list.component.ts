@@ -17,6 +17,6 @@ export class PostComponentListComponent {
   ) { }
 
   public onClickForPostDetail(id: number): void {
-    this.router.navigate([`/post/${id}`]);
+    this.router.navigate([`/posts/${id}`]);
   }
 }

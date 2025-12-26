@@ -1,88 +1,191 @@
 <form
-  [formGroup]="form"
-  class="max-w-5xl mx-auto p-6 space-y-8 bg-white rounded-lg shadow"
+  [formGroup]="form" xmlns="http://www.w3.org/1999/html"
+  class="max-w-5xl mx-auto p-6 space-y-8
+         bg-gray-800 border border-gray-700 rounded-xl shadow-md mt-4"
   (ngSubmit)="onSubmit()"
 >
   <!-- Title -->
   <div>
-    <label class="block mb-2 text-sm font-medium text-gray-900">
+    <label class="block mb-2 text-sm font-medium text-gray-300">
       Title *
     </label>
     <input
       type="text"
       formControlName="title"
-      class="input"
       placeholder="Product title"
+      class="w-full rounded-lg bg-gray-900 border border-gray-700
+             text-gray-100 placeholder-gray-500
+             focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
     />
+    @if (form.get('title')?.invalid && (form.get('title')?.touched || form.get('title')?.dirty)) {
+      @if (form.get('title')?.errors?.['required']) {
+        <p class="text-red-500 text-sm mt-1">Title is required</p>
+      }
+      @if (form.get('title')?.errors?.['minlength']) {
+        <p class="text-red-500 text-sm mt-1">
+          Title must be at least {{ form.get('title')?.errors?.['minlength'].requiredLength }} characters
+        </p>
+      }
+    }
   </div>
 
   <!-- Description -->
   <div>
-    <label class="block mb-2 text-sm font-medium text-gray-900">
+    <label class="block mb-2 text-sm font-medium text-gray-300">
       Description
     </label>
     <textarea
       rows="4"
       formControlName="description"
-      class="input"
       placeholder="Product description"
+      class="w-full rounded-lg bg-gray-900 border border-gray-700
+             text-gray-100 placeholder-gray-500
+             focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
     ></textarea>
+    @if (form.get('description')?.invalid && (form.get('description')?.touched || form.get('description')?.dirty)) {
+      @if (form.get('description')?.errors?.['maxlength']) {
+        <p class="text-red-500 text-sm mt-1">
+          Description cannot exceed {{ form.get('description')?.errors?.['maxlength'].requiredLength }} characters
+        </p>
+      }
+    }
   </div>
 
   <!-- Category / Brand -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block mb-2 text-sm font-medium">Category</label>
-      <input type="text" formControlName="category" class="input" />
+      <label class="block mb-2 text-sm font-medium text-gray-300">
+        Category
+      </label>
+      <input
+        type="text"
+        formControlName="category"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+      />
+      @if (form.get('category')?.invalid && (form.get('category')?.touched || form.get('category')?.dirty)) {
+        @if (form.get('category')?.errors?.['required']) {
+          <p class="text-red-500 text-sm mt-1">Category is required</p>
+        }
+      }
     </div>
 
     <div>
-      <label class="block mb-2 text-sm font-medium">Brand</label>
-      <input type="text" formControlName="brand" class="input" />
+      <label class="block mb-2 text-sm font-medium text-gray-300">
+        Brand
+      </label>
+      <input
+        type="text"
+        formControlName="brand"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+      />
+      @if (form.get('brand')?.invalid && (form.get('brand')?.touched || form.get('brand')?.dirty)) {
+        @if (form.get('brand')?.errors?.['required']) {
+          <p class="text-red-500 text-sm mt-1">Brand is required</p>
+        }
+      }
     </div>
   </div>
 
   <!-- Price / Discount / Stock -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <div>
-      <label class="block mb-2 text-sm font-medium">Price *</label>
-      <input type="number" formControlName="price" class="input" />
+      <label class="block mb-2 text-sm font-medium text-gray-300">
+        Price *
+      </label>
+      <input
+        type="number"
+        formControlName="price"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+      />
+      @if (form.get('price')?.invalid && (form.get('price')?.touched || form.get('price')?.dirty)) {
+        @if (form.get('price')?.errors?.['required']) {
+          <p class="text-red-500 text-sm mt-1">Price is required</p>
+        }
+        @if (form.get('price')?.errors?.['min']) {
+          <p class="text-red-500 text-sm mt-1">Price must be at least 0</p>
+        }
+      }
     </div>
 
     <div>
-      <label class="block mb-2 text-sm font-medium">Discount %</label>
+      <label class="block mb-2 text-sm font-medium text-gray-300">
+        Discount %
+      </label>
       <input
         type="number"
         formControlName="discountPercentage"
-        class="input"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
       />
+      @if (form.get('discountPercentage')?.invalid && (form.get('discountPercentage')?.touched || form.get('discountPercentage')?.dirty)) {
+        @if (form.get('discountPercentage')?.errors?.['min']) {
+          <p class="text-red-500 text-sm mt-1">Discount cannot be negative</p>
+        }
+        @if (form.get('discountPercentage')?.errors?.['max']) {
+          <p class="text-red-500 text-sm mt-1">Discount cannot exceed 100%</p>
+        }
+      }
     </div>
 
     <div>
-      <label class="block mb-2 text-sm font-medium">Stock</label>
-      <input type="number" formControlName="stock" class="input" />
+      <label class="block mb-2 text-sm font-medium text-gray-300">
+        Stock
+      </label>
+      <input
+        type="number"
+        formControlName="stock"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+      />
+      @if (form.get('stock')?.invalid && (form.get('stock')?.touched || form.get('stock')?.dirty)) {
+        @if (form.get('stock')?.errors?.['min']) {
+          <p class="text-red-500 text-sm mt-1">Stock cannot be negative</p>
+        }
+      }
     </div>
   </div>
 
   <!-- SKU / Weight -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block mb-2 text-sm font-medium">SKU</label>
-      <input type="text" formControlName="sku" class="input" />
+      <label class="block mb-2 text-sm font-medium text-gray-300">
+        SKU
+      </label>
+      <input
+        type="text"
+        formControlName="sku"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+      />
     </div>
 
     <div>
-      <label class="block mb-2 text-sm font-medium">Weight (kg)</label>
-      <input type="number" formControlName="weight" class="input" />
+      <label class="block mb-2 text-sm font-medium text-gray-300">
+        Weight (kg)
+      </label>
+      <input
+        type="number"
+        formControlName="weight"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+      />
+      @if (form.get('weight')?.invalid && (form.get('weight')?.touched || form.get('weight')?.dirty)) {
+        @if (form.get('weight')?.errors?.['min']) {
+          <p class="text-red-500 text-sm mt-1">Weight cannot be negative</p>
+        }
+      }
     </div>
   </div>
 
   <!-- Dimensions -->
   <fieldset
     formGroupName="dimensions"
-    class="border rounded-lg p-4"
+    class="border border-gray-700 rounded-xl p-4"
   >
-    <legend class="px-2 text-sm font-semibold text-gray-700">
+    <legend class="px-2 text-sm font-semibold text-gray-300">
       Dimensions (cm)
     </legend>
 
@@ -90,45 +193,65 @@
       <input
         type="number"
         formControlName="width"
-        class="input"
         placeholder="Width"
+        class="rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
       />
+      @if (form.get('dimensions.width')?.invalid && (form.get('dimensions.width')?.touched || form.get('dimensions.width')?.dirty)) {
+        @if (form.get('dimensions.width')?.errors?.['min']) {
+          <p class="text-red-500 text-sm mt-1">Width cannot be negative</p>
+        }
+      }
       <input
         type="number"
         formControlName="height"
-        class="input"
         placeholder="Height"
+        class="rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
       />
+      @if (form.get('dimensions.height')?.invalid && (form.get('dimensions.height')?.touched || form.get('dimensions.height')?.dirty)) {
+        @if (form.get('dimensions.height')?.errors?.['min']) {
+          <p class="text-red-500 text-sm mt-1">Height cannot be negative</p>
+        }
+      }
       <input
         type="number"
         formControlName="depth"
-        class="input"
         placeholder="Depth"
+        class="rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
       />
+      @if (form.get('dimensions.depth')?.invalid && (form.get('dimensions.depth')?.touched || form.get('dimensions.depth')?.dirty)) {
+        @if (form.get('dimensions.depth')?.errors?.['min']) {
+          <p class="text-red-500 text-sm mt-1">Depth cannot be negative</p>
+        }
+      }
     </div>
   </fieldset>
 
   <!-- Warranty / Shipping -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block mb-2 text-sm font-medium">
+      <label class="block mb-2 text-sm font-medium text-gray-300">
         Warranty Information
       </label>
       <input
         type="text"
         formControlName="warrantyInformation"
-        class="input"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
       />
     </div>
 
     <div>
-      <label class="block mb-2 text-sm font-medium">
+      <label class="block mb-2 text-sm font-medium text-gray-300">
         Shipping Information
       </label>
       <input
         type="text"
         formControlName="shippingInformation"
-        class="input"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
       />
     </div>
   </div>
@@ -136,66 +259,106 @@
   <!-- Availability / Return -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <label class="block mb-2 text-sm font-medium">
+      <label class="block mb-2 text-sm font-medium text-gray-300">
         Availability Status
       </label>
       <input
         type="text"
         formControlName="availabilityStatus"
-        class="input"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
       />
+      @if (form.get('availabilityStatus')?.invalid && (form.get('availabilityStatus')?.touched || form.get('availabilityStatus')?.dirty)) {
+        @if (form.get('availabilityStatus')?.errors?.['required']) {
+          <p class="text-red-500 text-sm mt-1">Availability Status is required</p>
+        }
+      }
     </div>
 
     <div>
-      <label class="block mb-2 text-sm font-medium">
+      <label class="block mb-2 text-sm font-medium text-gray-300">
         Return Policy
       </label>
-      <input type="text" formControlName="returnPolicy" class="input" />
+      <input
+        type="text"
+        formControlName="returnPolicy"
+        class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+        focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+      />
     </div>
   </div>
 
   <!-- Minimum Order -->
   <div>
-    <label class="block mb-2 text-sm font-medium">
+    <label class="block mb-2 text-sm font-medium text-gray-300">
       Minimum Order Quantity
     </label>
     <input
       type="number"
       formControlName="minimumOrderQuantity"
-      class="input"
+      class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+      focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
     />
+    @if (form.get('minimumOrderQuantity')?.invalid && (form.get('minimumOrderQuantity')?.touched || form.get('minimumOrderQuantity')?.dirty)) {
+      @if (form.get('minimumOrderQuantity')?.errors?.['min']) {
+        <p class="text-red-500 text-sm mt-1">Minimum Order Quantity must be at least 1</p>
+      }
+    }
   </div>
 
   <!-- Tags -->
   <div>
-    <label class="block mb-2 text-sm font-medium">
+    <label class="block mb-2 text-sm font-medium text-gray-300">
       Tags (comma separated)
     </label>
-    <input type="text" formControlName="tags" class="input" />
+    <input
+      type="text"
+      formControlName="tags"
+      class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+      focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+    />
   </div>
 
   <!-- Images -->
   <div>
-    <label class="block mb-2 text-sm font-medium">
+    <label class="block mb-2 text-sm font-medium text-gray-300">
       Images URLs (comma separated)
     </label>
-    <input type="text" formControlName="images" class="input" />
+    <input
+      type="text"
+      formControlName="images"
+      class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+      focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+    />
   </div>
 
   <!-- Thumbnail -->
   <div>
-    <label class="block mb-2 text-sm font-medium">
+    <label class="block mb-2 text-sm font-medium text-gray-300">
       Thumbnail URL
     </label>
-    <input type="text" formControlName="thumbnail" class="input" />
+    <input
+      type="text"
+      formControlName="thumbnail"
+      class="w-full rounded-lg bg-gray-900 border border-gray-700 text-gray-100
+      focus:ring-2 focus:ring-mesh-600 focus:border-mesh-600"
+    />
+    @if (form.get('thumbnail')?.invalid && (form.get('thumbnail')?.touched || form.get('thumbnail')?.dirty)) {
+      @if (form.get('thumbnail')?.errors?.['required']) {
+        <p class="text-red-500 text-sm mt-1">Thumbnail is required</p>
+      }
+    }
   </div>
 
   <!-- Submit -->
   <div class="flex justify-end">
     <button
       type="submit"
-      class="px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
       [disabled]="form.invalid"
+      class="px-6 py-2 rounded-lg font-medium text-white
+             bg-mesh-600 hover:bg-mesh-700
+             disabled:bg-gray-600 disabled:cursor-not-allowed
+             focus:ring-4 focus:ring-mesh-500/50"
     >
       Save Product
     </button>

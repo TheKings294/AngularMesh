@@ -31,4 +31,14 @@ export class PostsListComponent implements OnInit {
       error: error => console.log(error)
     })
   }
+
+  public showMore() {
+    this.httpService.getAllPosts(this.posts.length).subscribe({
+      next: data => {
+        data.posts.forEach(post => {
+          this.posts.push(post);
+        })
+      }
+    })
+  }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UsersService, User } from '../../../../core/services/http/users/users.service';
+import {User} from '../../../../core/model/user/user';
+import {UserService} from '../../../../core/services/http/user/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-users-list',
@@ -11,7 +13,10 @@ import { UsersService, User } from '../../../../core/services/http/users/users.s
   styleUrls: ['./users-list.component.css'],
 })
 export class UsersListComponent implements OnInit {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UserService,
+    private router: Router,
+  ) {}
 
   users: User[] = [];
   loading = true;
@@ -86,5 +91,9 @@ export class UsersListComponent implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  public detailUserPage(id: number): void {
+    this.router.navigate([`/users/${id}`]);
   }
 }

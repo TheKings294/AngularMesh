@@ -5,7 +5,11 @@ import { TokenService } from '../../services/storage/token/token.service';
 export const authGuard: CanActivateFn = (route, state) => {
   const tokenService = inject(TokenService);
   const router = inject(Router);
-  const hasToken = !!tokenService.getToken();
 
-  return hasToken ? true : router.parseUrl('/login');
+  if (!tokenService.getToken()) {
+    router.navigate(['/login']);
+    return false;
+  }
+
+  return true
 };

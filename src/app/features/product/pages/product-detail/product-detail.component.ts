@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Product} from '../../../../core/model/product/domain-product';
 import {ProductService} from '../../../../core/services/http/product/product.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {DatePipe, NgClass} from '@angular/common';
 
 @Component({
@@ -9,7 +9,8 @@ import {DatePipe, NgClass} from '@angular/common';
   standalone: true,
   imports: [
     NgClass,
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
@@ -36,7 +37,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   public editProduct(id: number) {
-    this.router.navigate([`products/update/${id}`]);
+    this.router.navigate([`products/object/update/${id}`]);
   }
 
   public deleteProduct(id: number) {

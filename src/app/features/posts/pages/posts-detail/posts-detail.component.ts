@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from '../../../../core/services/http/post/post.service';
 import {Post} from '../../../../core/model/post/post';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {CommentService} from '../../../../core/services/http/comment/comment.service';
 import type {Comment} from '../../../../core/model/comment/comment';
 import {PostComponentDetailComponent} from '../../components/post-component-detail/post-component-detail.component';
@@ -12,7 +12,8 @@ import {PostCommentListComponent} from '../../components/post-comment-list/post-
   standalone: true,
   imports: [
     PostComponentDetailComponent,
-    PostCommentListComponent
+    PostCommentListComponent,
+    RouterLink
   ],
   templateUrl: './posts-detail.component.html',
   styleUrls: ['./posts-detail.component.css']

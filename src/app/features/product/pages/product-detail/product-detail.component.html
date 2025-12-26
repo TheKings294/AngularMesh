@@ -1,9 +1,17 @@
+<button type="button"
+        routerLink="/products"
+        class="text-white bg-mesh box-border border border-transparent hover:bg-mesh-strong
+  focus:ring-4 focus:ring-mesh-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none
+  m-4 rounded-md">
+  <- Retour
+</button>
+
 @if (product) {
   <div class="flex justify-end items-center flex-row gap-4 mt-4 me-4">
     <button
       type="button"
       class="box-border border border-transparent
-         bg-blue-600 hover:bg-blue-700
+         bg-mesh-600 hover:bg-mesh-700
          text-white
          focus:ring-4 focus:ring-blue-300 focus:outline-none
          shadow-sm
@@ -97,7 +105,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
       <!-- Logistics -->
-      <div class="card bg-gray-800 border border-gray-700">
+      <div class="card bg-gray-800 border border-gray-700 p-2 rounded-md">
         <div class="card-body">
           <h2 class="card-title text-white">Logistics</h2>
 
@@ -113,7 +121,7 @@
       </div>
 
       <!-- Dimensions -->
-      <div class="card bg-gray-800 border border-gray-700">
+      <div class="card bg-gray-800 border border-gray-700 p-2 rounded-md">
         <div class="card-body">
           <h2 class="card-title text-white">Dimensions</h2>
 
@@ -127,7 +135,7 @@
       </div>
 
       <!-- Tags -->
-      <div class="card bg-gray-800 border border-gray-700">
+      <div class="card bg-gray-800 border border-gray-700 p-2 rounded-md">
         <div class="card-body">
           <h2 class="card-title text-white">Tags</h2>
 
@@ -145,7 +153,7 @@
     </div>
 
     <!-- Reviews -->
-    <div class="card bg-gray-800 border border-gray-700">
+    <div class="card bg-gray-800 border border-gray-700 p-2 rounded-md">
       <div class="card-body">
         <h2 class="card-title text-white">
           Reviews ({{ product.reviews.length }})
