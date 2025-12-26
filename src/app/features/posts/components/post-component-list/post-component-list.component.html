@@ -1,0 +1,59 @@
+<div
+  class="bg-gray-800 border border-gray-700 rounded-xl p-5 shadow-md
+         transition hover:shadow-lg hover:border-gray-600 hover:cursor-pointer"
+  (click)="onClickForPostDetail(post.id)"
+>
+  <!-- Header -->
+  <div class="flex justify-between items-start mb-3">
+    <h3 class="text-lg font-semibold text-white leading-tight">
+      {{ post.title }}
+    </h3>
+
+    <span
+      class="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300"
+    >
+      #{{ post.id }}
+    </span>
+  </div>
+
+  <!-- Body -->
+  <p class="text-gray-400 text-sm mb-4 line-clamp-4">
+    {{ post.body }}
+  </p>
+
+  <!-- Tags -->
+  @if (post.tags.length > 0) {
+    <div class="flex flex-wrap gap-2 mb-4">
+      @for (tag of post.tags; track tag) {
+        <span
+          class="px-3 py-1 text-xs rounded-full
+                 bg-mesh-700 text-gray-200 border border-gray-600"
+        >
+          {{ tag }}
+        </span>
+      }
+    </div>
+  }
+
+  <!-- Footer -->
+  <div class="flex justify-between items-center text-sm text-gray-400">
+
+    <!-- Reactions -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-1">
+        <span class="text-green-400">▲</span>
+        {{ post.reactions.likes }}
+      </div>
+
+      <div class="flex items-center gap-1">
+        <span class="text-red-400">▼</span>
+        {{ post.reactions.dislikes }}
+      </div>
+    </div>
+
+    <!-- Review -->
+    <div class="flex items-center gap-1 text-yellow-400">
+      ★ {{ post.review }}/5
+    </div>
+  </div>
+</div>

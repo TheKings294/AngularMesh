@@ -1,0 +1,11 @@
+<button type="button"
+        routerLink="/posts"
+        class="text-white bg-mesh box-border border border-transparent hover:bg-mesh-strong
+  focus:ring-4 focus:ring-mesh-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none
+  m-4 rounded-md">
+  <- Retour
+</button>
+
+<div class="mx-auto max-w-4xl p-6 space-y-8">
+  <app-post-component-detail [post]="post" [comments]="comment" />
+</div>

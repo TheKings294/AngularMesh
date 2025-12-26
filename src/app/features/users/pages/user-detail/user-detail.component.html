@@ -1,0 +1,123 @@
+<button type="button"
+        routerLink="/users"
+        class="text-white bg-mesh box-border border border-transparent hover:bg-mesh-strong
+  focus:ring-4 focus:ring-mesh-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none
+  m-4 rounded-md">
+  <- Retour
+</button>
+
+@if (user) {
+  <div class="max-w-6xl mx-auto p-6 space-y-8">
+
+    <!-- User Header -->
+    <section
+      class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-md
+             flex flex-col md:flex-row gap-6"
+    >
+      <!-- Avatar -->
+      <img
+        [src]="user.image"
+        alt="User avatar"
+        class="w-32 h-32 rounded-full object-cover
+               border border-gray-700 shadow"
+      />
+
+      <!-- Identity -->
+      <div class="flex-1 space-y-2">
+        <h1 class="text-3xl font-bold text-white">
+          {{ user.firstName }} {{ user.lastName }}
+        </h1>
+
+        <p class="text-gray-400">
+          {{ user.username }} · {{ user.role | titlecase }}
+        </p>
+
+        <div class="flex flex-wrap gap-4 text-sm text-gray-300 mt-3">
+          <span>📧 {{ user.email }}</span>
+          <span>📞 {{ user.phone }}</span>
+          <span>🎓 {{ user.university }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Info -->
+    <section
+      class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-md"
+    >
+      <h2 class="text-xl font-semibold text-white mb-4">
+        Personal Information
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-300">
+        <div><strong>Age:</strong> {{ user.age }}</div>
+        <div><strong>Gender:</strong> {{ user.gender }}</div>
+        <div><strong>Birth date:</strong> {{ user.birthDate | date }}</div>
+
+        <div><strong>Height:</strong> {{ user.height }} cm</div>
+        <div><strong>Weight:</strong> {{ user.weight }} kg</div>
+        <div><strong>Blood group:</strong> {{ user.bloodGroup }}</div>
+
+        <div><strong>Eye color:</strong> {{ user.eyeColor }}</div>
+        <div><strong>Hair:</strong> {{ user.hair.color }} / {{ user.hair.type }}</div>
+      </div>
+    </section>
+
+    <!-- Address -->
+    <section
+      class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-md"
+    >
+      <h2 class="text-xl font-semibold text-white mb-4">
+        Address
+      </h2>
+
+      <p class="text-gray-300 text-sm leading-relaxed">
+        {{ user.address.address }}<br />
+        {{ user.address.city }},
+        {{ user.address.stateCode }}
+        {{ user.address.postalCode }}<br />
+        {{ user.address.country }}
+      </p>
+    </section>
+
+    <!-- Company -->
+    <section
+      class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-md"
+    >
+      <h2 class="text-xl font-semibold text-white mb-4">
+        Company
+      </h2>
+
+      <div class="text-sm text-gray-300 space-y-1">
+        <p><strong>Name:</strong> {{ user.company.name }}</p>
+        <p><strong>Department:</strong> {{ user.company.department }}</p>
+        <p><strong>Title:</strong> {{ user.company.title }}</p>
+      </div>
+    </section>
+
+    <!-- User Posts -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-semibold text-white">
+          Posts by {{ user.firstName }}
+        </h2>
+
+        <span class="text-sm text-gray-400">
+          Total: {{ postsResponse.total }}
+        </span>
+      </div>
+
+      @if (postsResponse.posts.length === 0) {
+        <p class="text-gray-400">
+          This user has not written any posts.
+        </p>
+      }
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        @for (post of postsResponse.posts; track post.id) {
+          <app-post-component-list [post]="post"/>
+        }
+      </div>
+    </section>
+
+  </div>
+}
